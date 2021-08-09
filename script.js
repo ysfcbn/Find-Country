@@ -31,7 +31,7 @@ const renderCountry = function (data, className = "") {
           <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
           <p class="country__row"><span>🏛</span>${data.capital}</p>
           <p class="country__row"><span>🏙</span>${
-						city ? city + " city" : "Need to Confirm"
+						city ? city : "Need to Confirm"
 					}</p>
         </div>
       </article>
