@@ -69,7 +69,7 @@ const stadia = L.tileLayer(
 //Open MAp
 const openMap = function () {
 	map1 = L.map("map").setView([38, 38], 4);
-	stadia.addTo(map1);
+	osm.addTo(map1);
 };
 
 // Go to Location on MAp
@@ -340,12 +340,12 @@ homeBtn.addEventListener("click", function () {
 satalite.addEventListener("click", function () {
 	satalite.style.display = "none";
 	maps.style.display = "block";
-	map1.removeLayer(stadia);
+	map1.removeLayer(osm);
 	esriMap.addTo(map1);
 });
 maps.addEventListener("click", function () {
 	satalite.style.display = "block";
 	maps.style.display = "none";
 	map1.removeLayer(esriMap);
-	stadia.addTo(map1);
+	osm.addTo(map1);
 });
