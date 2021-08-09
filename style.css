@@ -1,0 +1,330 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+html {
+	font-size: 62.5%;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: system-ui;
+	color: #555;
+	background-color: #f7f7f7;
+	min-height: 100vh;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.countries {
+	/* margin-top: 2rem; */
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 2rem;
+	opacity: 1;
+	transition: opacity 1s;
+	/* max-height: fit-content; */
+}
+
+.country {
+	background-color: #fff;
+	box-shadow: 0 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
+	font-size: 1.8rem;
+	width: 30rem;
+	border-radius: 0.7rem;
+	margin: 0 2rem;
+	/* overflow: hidden; */
+}
+
+.neighbour::before {
+	content: "Neighbour country";
+	width: 100%;
+	position: absolute;
+	top: -4rem;
+	text-align: center;
+	font-size: 1.8rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	color: #888;
+}
+
+.neighbour {
+	transform: scale(0.8) translateY(1rem);
+	margin-left: 0;
+	transition: all 0.3s ease;
+}
+.neighbour:hover {
+	transform: scale(0.85);
+	transition: all 0.3s ease;
+	cursor: pointer;
+}
+.country__img {
+	width: 30rem;
+	height: 17rem;
+	object-fit: cover;
+	background-color: #eee;
+	border-top-left-radius: 0.7rem;
+	border-top-right-radius: 0.7rem;
+}
+
+.country__data {
+	padding: 2.5rem 3.75rem 3rem 3.75rem;
+}
+
+.country__name {
+	font-size: 2.7rem;
+	margin-bottom: 0.7rem;
+}
+
+.country__region {
+	font-size: 1.4rem;
+	margin-bottom: 2.5rem;
+	text-transform: uppercase;
+	color: #888;
+}
+
+.country__row:not(:last-child) {
+	margin-bottom: 1rem;
+}
+
+.country__row span {
+	display: inline-block;
+	margin-right: 2rem;
+	font-size: 2.4rem;
+}
+
+.btn-country {
+	border: none;
+	font-size: 2rem;
+	padding: 2rem 5rem;
+	border-radius: 0.7rem;
+	color: white;
+	background-color: orangered;
+	cursor: pointer;
+}
+
+.images {
+	display: flex;
+}
+
+.images img {
+	display: block;
+	width: 80rem;
+	margin: 4rem;
+}
+
+.images img.parallel {
+	width: 40rem;
+	margin: 2rem;
+	border: 3rem solid white;
+	box-shadow: 0 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.navigator {
+	padding: 2rem;
+}
+
+.inputs {
+	width: fit-content;
+}
+.lng {
+	margin-left: 1rem;
+}
+.lat,
+.lng {
+	width: 14.5rem;
+	height: 3rem;
+	font-size: 20px;
+	outline: none;
+	border-radius: 5px;
+	padding: 5px;
+	animation: inputs-light 2s ease-in infinite;
+}
+
+.buttons {
+	margin: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.my-location,
+.get-location,
+.borders {
+	width: 16rem;
+	margin-top: 1rem;
+	height: 3rem;
+	font-size: 16px;
+	border-radius: 5px;
+	background-color: bisque;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+.my-location:hover,
+.get-location:hover,
+.borders:hover {
+	transform: scale(1.1);
+	transition: all 0.3s ease;
+}
+
+.borders {
+	display: none;
+}
+
+.home {
+	margin-top: 1rem;
+	font-size: 22px;
+	background-color: #47fc59;
+	border-radius: 5px;
+	width: 4rem;
+	text-align: center;
+	cursor: pointer;
+}
+
+.map-container {
+	display: flex;
+	flex-direction: column;
+	padding: 2rem 2rem 0 2rem;
+	position: relative;
+}
+
+.satalite,
+.maps {
+	border: none;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	align-self: flex-end;
+	margin-top: 1rem;
+	font-size: 22px;
+	border-radius: 5px;
+	width: 4rem;
+	text-align: center;
+	cursor: pointer;
+	background: transparent;
+}
+.maps {
+	display: none;
+}
+.maps img,
+.satalite img {
+	margin-top: 5px;
+}
+#map {
+	width: 100%;
+	height: 40rem;
+}
+
+.leaflet-popup .leaflet-popup-content-wrapper {
+	background-color: #555;
+	color: goldenrod;
+	border-radius: 20px;
+	padding-right: 0.6rem;
+}
+
+.popup {
+	font-size: 13px;
+	font-weight: 600;
+	font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+	text-transform: uppercase;
+}
+@keyframes inputs-light {
+	1% {
+		border-left-color: #5bff6b;
+	}
+	5% {
+		border-left-color: #5bff6b;
+	}
+	10% {
+		border-left-color: #5bff6b;
+	}
+	15% {
+		border-left-color: #5bff6b;
+	}
+
+	20% {
+		border-left-color: #5bff6b;
+	}
+	25% {
+		border-left-color: #5bff6b;
+	}
+	30% {
+		border-top-color: #5bff6b;
+		border-left-color: #5bff6b;
+	}
+	35% {
+		border-top-color: #5bff6b;
+		border-left-color: #5bff6b;
+	}
+
+	40% {
+		border-top-color: #5bff6b;
+		border-left-color: #5bff6b;
+	}
+	45% {
+		border-top-color: #5bff6b;
+		border-left-color: #5bff6b;
+	}
+	50% {
+		border-top-color: #5bff6b;
+		border-left-color: #5bff6b;
+
+		/* box-shadow: 0px 0px 10px #5bff6b; */
+	}
+	55% {
+		border-right-color: #5bff6b;
+		border-left-color: #5bff6b;
+		border-top-color: #5bff6b;
+	}
+	60% {
+		border-right-color: #5bff6b;
+		border-left-color: #5bff6b;
+		border-top-color: #5bff6b;
+	}
+	65% {
+		border-right-color: #5bff6b;
+		border-left-color: #5bff6b;
+		border-top-color: #5bff6b;
+	}
+	70% {
+		border-right-color: #5bff6b;
+		border-left-color: #5bff6b;
+		border-top-color: #5bff6b;
+	}
+	75% {
+		border-right-color: #5bff6b;
+		border-left-color: #5bff6b;
+		border-top-color: #5bff6b;
+	}
+	80% {
+		border-bottom-color: #5bff6b;
+		border-left-color: #5bff6b;
+	}
+
+	85% {
+		border-bottom-color: #5bff6b;
+		border-left-color: #5bff6b;
+	}
+	90% {
+		border-bottom-color: #5bff6b;
+		border-left-color: #5bff6b;
+	}
+	95% {
+		border-bottom-color: #5bff6b;
+		border-left-color: #5bff6b;
+	}
+	100% {
+		border-left-color: #5bff6b;
+		border-bottom-color: #5bff6b;
+	}
+}

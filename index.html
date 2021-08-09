@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Asynchronous JavaScript</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="map-container">
+      <div id="map"></div>
+      <button class="maps">
+        <img src="img/maps.png" alt="Map" width="35px" />
+      </button>
+      <button class="satalite">
+        <img src="img/satellite.png" alt="Satalite" width="35px" />
+      </button>
+    </div>
+    <main class="container">
+      <div class="countries">
+        <!--
+        <article class="country">
+          <img class="country__img" src="" />
+          <div class="country__data">
+            <h3 class="country__name">COUNTRY</h3>
+            <h4 class="country__region">REGION</h4>
+            <p class="country__row"><span>👫</span>POP people</p>
+            <p class="country__row"><span>🗣️</span>LANG</p>
+            <p class="country__row"><span>💰</span>CUR</p>
+          </div>
+        </article>
+        -->
+      </div>
+      <div class="navigator">
+        <div class="inputs">
+          <input class="lat" type="text" placeholder="lat" />
+          <input class="lng" type="text" placeholder="lng" />
+        </div>
+        <div class="buttons">
+          <button class="my-location">Where Am I 📍</button>
+          <button class="get-location">Confirm Location!📌</button>
+          <button class="borders">Show Neighbours 🌎</button>
+          <button class="home">🏠</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
