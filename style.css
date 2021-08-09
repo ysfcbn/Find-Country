@@ -148,7 +148,7 @@ body {
 	outline: none;
 	border-radius: 5px;
 	padding: 5px;
-	animation: inputs-light 2s ease-in infinite;
+	animation: inputs-light 1s ease-in infinite alternate;
 }
 
 .buttons {
