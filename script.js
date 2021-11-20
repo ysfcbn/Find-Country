@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const btn = document.querySelector(".btn-country");
-const countriesContainer = document.querySelector(".countries");
+const btn = document.querySelector('.btn-country');
+const countriesContainer = document.querySelector('.countries');
 let map1;
 ///////////////////////////////////////
 
@@ -13,51 +13,55 @@ const getPosition = function () {
 };
 
 // Rendering Country
-const renderCountry = function (data, className = "") {
+const renderCountry = function (data, className = '') {
 	const html = `
      <article class="country ${className}">
-        <img class="country__img" src="${data.flag}" />
+        <img class="country__img" src=${data.flags.png} />
         <div class="country__data">
-          <h3 class="country__name">${data.name}</h3>
+          <h3 class="country__name">${data.name.common}</h3>
           <h4 class="country__region">${data.region}</h4>
           <p class="country__row"><span>👫</span>${(
 						+data.population / 1000000
 					).toFixed(1)} million people</p>
           <p class="country__row"><span>🗣️</span>${
-						data.languages.length > 1
-							? data.languages.map(name => name.name)
-							: data.languages[0].name
+						Object.keys(data.languages).length > 1
+							? Object.keys(data.languages).map(
+									lang => data.languages[`${lang}`]
+							  )
+							: data.languages[Object.keys(data.languages)]
 					}</p>
-          <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
-          <p class="country__row"><span>🏛</span>${data.capital}</p>
+          <p class="country__row"><span>💰</span>${
+						data.currencies[Object.keys(data.currencies)].name
+					}</p>
+          <p class="country__row"><span>🏛</span>${data.capital[0]}</p>
           <p class="country__row"><span>🏙</span>${
-						city ? city : "Need to Confirm"
+						city ? city : 'Need to Confirm'
 					}</p>
         </div>
       </article>
   `;
 
-	countriesContainer.insertAdjacentHTML("beforeend", html);
+	countriesContainer.insertAdjacentHTML('beforeend', html);
 	countriesContainer.style.opacity = 1;
 };
 
 const esriMap = L.tileLayer(
-	"https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+	'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 	{
 		attribution:
-			"Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
+			'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
 		minZoom: 2,
 	}
 );
 
-const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	attribution:
 		'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	minZoom: 2,
 });
 
 const stadia = L.tileLayer(
-	"https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png",
+	'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png',
 	{
 		maxZoom: 20,
 		attribution:
@@ -68,7 +72,7 @@ const stadia = L.tileLayer(
 
 //Open MAp
 const openMap = function () {
-	map1 = L.map("map").setView([38, 38], 4);
+	map1 = L.map('map').setView([38, 38], 4);
 	osm.addTo(map1);
 };
 
@@ -86,7 +90,7 @@ const renderMarker = function (lat, lng) {
 				autoClose: false,
 				closeOnClick: false,
 				closeOnEscapeKey: true,
-				className: "popup",
+				className: 'popup',
 			})
 		)
 		.setPopupContent(`${city}`)
@@ -94,15 +98,15 @@ const renderMarker = function (lat, lng) {
 	markers.push(marker);
 };
 
-const myLocation = document.querySelector(".my-location");
-const getLocation = document.querySelector(".get-location");
-const lat = document.querySelector(".lat");
-const lng = document.querySelector(".lng");
-const getNeighbour = document.querySelector(".borders");
-const map = document.querySelector("#map");
-const satalite = document.querySelector(".satalite");
-const maps = document.querySelector(".maps");
-const homeBtn = document.querySelector(".home");
+const myLocation = document.querySelector('.my-location');
+const getLocation = document.querySelector('.get-location');
+const lat = document.querySelector('.lat');
+const lng = document.querySelector('.lng');
+const getNeighbour = document.querySelector('.borders');
+const map = document.querySelector('#map');
+const satalite = document.querySelector('.satalite');
+const maps = document.querySelector('.maps');
+const homeBtn = document.querySelector('.home');
 const myHome = [41.071999712, 29.039833174];
 let clickLocation = [];
 let markers = [];
@@ -117,7 +121,7 @@ let selectedCountry;
 let neighbourCounter = 0;
 openMap();
 
-map1.on("click", function (e) {
+map1.on('click', function (e) {
 	clickLocation = [];
 	const { lat: latitude, lng: longitude } = e.latlng;
 	clickLocation.push(...[latitude, longitude]);
@@ -127,13 +131,13 @@ map1.on("click", function (e) {
 
 const resetFunc = function () {
 	neighbourEl = [];
-	selectedNeighbour = "";
+	selectedNeighbour = '';
 	selectedCountry = [];
 	listNeighbour = [];
 };
 
 const getMyLocation = function () {
-	myLocation.style.display = "none";
+	myLocation.style.display = 'none';
 	// Get current Position
 	getPosition()
 		.then(pos => {
@@ -153,12 +157,13 @@ const getMyLocation = function () {
 			return response.json();
 		})
 		.then(data => {
+			console.log(data);
 			goLocationMap(lat.value, lng.value);
 			if (!data.features[0].properties.country) {
 				throw new Error(
 					`⛔ Country not found! You are at "${data.features[0].properties.name}" ⛔`
 				);
-			} else countriesContainer.textContent = "";
+			} else countriesContainer.textContent = '';
 			console.log(
 				`You are in "${data.features[0].properties.city}", "${data.features[0].properties.country}"`
 			);
@@ -167,7 +172,7 @@ const getMyLocation = function () {
 				: (city = data.features[0].properties.state);
 			renderMarker(lat.value, lng.value);
 			return fetch(
-				`https://restcountries.eu/rest/v2/name/${data.features[0].properties.country}`
+				`https://restcountries.com/v3.1/name/${data.features[0].properties.country}`
 			);
 		})
 		.then(response => {
@@ -178,28 +183,29 @@ const getMyLocation = function () {
 		.then(data => {
 			console.log(data[0]);
 			country.push(data[0]);
-			getNeighbour.style.display = "block";
+			getNeighbour.style.display = 'block';
+			console.log(Object.keys(data[0].languages));
 
 			return renderCountry(data[0]);
 		})
 		.catch(err => {
-			myLocation.style.display = "block";
+			myLocation.style.display = 'block';
 			countriesContainer.textContent = err.message;
 			console.log(`${err.message}`);
 		});
 };
 
 const showNeighbour = function () {
-	getNeighbour.style.display = "none";
+	getNeighbour.style.display = 'none';
 	const neighbour = country[0].borders;
 	if (neighbour.length < 1) {
-		countriesContainer.innerHTML += "No neighbour found!";
-		throw new Error("No neighbour found!");
+		countriesContainer.innerHTML += 'No neighbour found!';
+		throw new Error('No neighbour found!');
 	}
 	if (neighbour.length >= 1) {
 		const promise1 = new Promise(function (resolve, reject) {
 			for (const countries of neighbour) {
-				fetch(`https://restcountries.eu/rest/v2/alpha/${countries}`)
+				fetch(`https://restcountries.com/v3.1/alpha/${countries}`)
 					.then(response => {
 						if (!response.ok) {
 							throw new Error(
@@ -209,17 +215,19 @@ const showNeighbour = function () {
 						return response.json();
 					})
 					.then(data => {
-						listNeighbour.push(data);
+						console.log(data);
+						listNeighbour.push(data[0]);
+						console.log(listNeighbour);
 						console.log(
-							`${country[0].name}'s ${neighbourCounter + 1}. neighbour => ${
-								data.name
-							}`
+							`${country[0].name.common}'s ${
+								neighbourCounter + 1
+							}. neighbour => ${data[0].name.common}`
 						);
-						city = data.city;
-						return renderCountry(data, "neighbour");
+						city = data[0].city;
+						return renderCountry(data[0], 'neighbour');
 					})
 					.then(() => {
-						return (neighbourEl = [...document.querySelectorAll(".neighbour")]);
+						return (neighbourEl = [...document.querySelectorAll('.neighbour')]);
 					})
 					.then(res => {
 						neighbourCounter++;
@@ -238,29 +246,29 @@ const showNeighbour = function () {
 		promise1.then(() => {
 			neighbourCounter = 0;
 			neighbourEl.forEach((el, i) => {
-				el.addEventListener("click", function () {
+				el.addEventListener('click', function () {
 					const index = neighbourEl.indexOf(el);
 					neighbourEl.forEach(element => {
-						element.style.border = "";
-						element.style.transform = "scale(0.8)";
+						element.style.border = '';
+						element.style.transform = 'scale(0.8)';
 					});
 
-					el.style.border = "2px  #02b11f solid";
-					el.style.transform = "scale(0.85)";
-					const selected = el.querySelector(".country__data > .country__name");
+					el.style.border = '2px  #02b11f solid';
+					el.style.transform = 'scale(0.85)';
+					const selected = el.querySelector('.country__data > .country__name');
 					if (
 						selected.textContent ===
-						neighbourEl[i].querySelector(".country__data > .country__name")
+						neighbourEl[i].querySelector('.country__data > .country__name')
 							.textContent
 					) {
 						selectedNeighbour = selected.textContent;
 						selectedCountry = listNeighbour.find(
-							el => el.name === selectedNeighbour
+							el => el.name.common === selectedNeighbour
 						).latlng;
 						console.log(
 							`selected country: ${selectedNeighbour}'s lat & lng => ` +
 								selectedCountry[0] +
-								" & " +
+								' & ' +
 								selectedCountry[1]
 						);
 						lat.value = selectedCountry[0];
@@ -291,7 +299,7 @@ const confirmLocation = function (latitude, longitude) {
 				throw new Error(
 					`⛔ Country not found! You are at "${data.features[0].properties.name}" ⛔`
 				);
-			} else countriesContainer.textContent = "";
+			} else countriesContainer.textContent = '';
 			console.log(
 				`You are in "${data.features[0].properties.city}", "${data.features[0].properties.country}"`
 			);
@@ -302,7 +310,7 @@ const confirmLocation = function (latitude, longitude) {
 			renderMarker(lat.value, lng.value);
 
 			return fetch(
-				`https://restcountries.eu/rest/v2/name/${data.features[0].properties.country}`
+				`https://restcountries.com/v3.1/name/${data.features[0].properties.country}`
 			);
 		})
 		.then(response => {
@@ -313,39 +321,39 @@ const confirmLocation = function (latitude, longitude) {
 		.then(data => {
 			console.log(data[0]);
 			country.push(data[0]);
-			getNeighbour.style.display = "block";
+			getNeighbour.style.display = 'block';
 			return renderCountry(data[0]);
 		})
 		.catch(err => {
-			getNeighbour.style.display = "none";
-			myLocation.style.display = "none";
+			getNeighbour.style.display = 'none';
+			myLocation.style.display = 'none';
 			countriesContainer.textContent = err.message;
 			console.log(`${err.message}`);
 		});
 };
 
-getLocation.addEventListener("click", () =>
+getLocation.addEventListener('click', () =>
 	confirmLocation(lat.value, lng.value)
 );
 
-getNeighbour.addEventListener("click", showNeighbour);
+getNeighbour.addEventListener('click', showNeighbour);
 
-myLocation.addEventListener("click", getMyLocation);
+myLocation.addEventListener('click', getMyLocation);
 
-homeBtn.addEventListener("click", function () {
+homeBtn.addEventListener('click', function () {
 	[lat.value, lng.value] = myHome;
 	goLocationMap(myHome[0], myHome[1]);
 	confirmLocation(myHome[0], myHome[1]);
 });
-satalite.addEventListener("click", function () {
-	satalite.style.display = "none";
-	maps.style.display = "block";
+satalite.addEventListener('click', function () {
+	satalite.style.display = 'none';
+	maps.style.display = 'block';
 	map1.removeLayer(osm);
 	esriMap.addTo(map1);
 });
-maps.addEventListener("click", function () {
-	satalite.style.display = "block";
-	maps.style.display = "none";
+maps.addEventListener('click', function () {
+	satalite.style.display = 'block';
+	maps.style.display = 'none';
 	map1.removeLayer(esriMap);
 	osm.addTo(map1);
 });
