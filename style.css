@@ -47,7 +47,7 @@ body {
 }
 
 .neighbour::before {
-	content: "Neighbour country";
+	content: 'Neighbour country';
 	width: 100%;
 	position: absolute;
 	top: -4rem;
@@ -222,7 +222,7 @@ body {
 }
 #map {
 	width: 100%;
-	height: 40rem;
+	height: 50rem;
 }
 
 .leaflet-popup .leaflet-popup-content-wrapper {
@@ -235,7 +235,7 @@ body {
 .popup {
 	font-size: 13px;
 	font-weight: 600;
-	font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 	text-transform: uppercase;
 }
 @keyframes inputs-light {
